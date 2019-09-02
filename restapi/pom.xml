@@ -56,7 +56,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- uncomment this to get JSON support <dependency> <groupId>org.glassfish.jersey.media</groupId> 
-			<artifactId>jersey-media-json-binding</artifactId> </dependency> -->
+				<artifactId>jersey-media-json-binding</artifactId> </dependency> -->
 	</dependencies>
 	<properties>
 		<jersey.version>2.29</jersey.version>

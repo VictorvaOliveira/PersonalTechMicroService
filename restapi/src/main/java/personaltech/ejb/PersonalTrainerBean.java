@@ -32,4 +32,21 @@ public class PersonalTrainerBean {
 		}
 		return null;
 	}
+	
+	public PersonalTrainer getOnePersonal(int id) {
+		PersonalTrainer personal = entityManager.find(PersonalTrainer.class, id);
+		
+		if(personal != null)
+			return personal;
+		return null;
+	}
+	
+	public PersonalTrainer cadastrarPersonal(String name, String email, String senha) {
+		PersonalTrainer personal = new PersonalTrainer();
+		personal.setNome(name);
+		personal.setEmail(email);
+		personal.setSenha(senha);
+		entityManager.persist(personal);
+		return personal;
+	}
 }
