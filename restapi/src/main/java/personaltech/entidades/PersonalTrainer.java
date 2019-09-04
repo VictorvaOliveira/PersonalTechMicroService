@@ -33,7 +33,7 @@ public class PersonalTrainer implements Serializable{
 
 	/*
 	 * 
-	 * PARAMÊTRO NOME
+	 * PARAMÊTRO IDENTIFICADOR DO ALUNO
 	 * 
 	 */
 	public int getId() {
