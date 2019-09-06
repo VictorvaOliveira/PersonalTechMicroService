@@ -59,7 +59,7 @@ public class PersonalTechService {
 	 * Recupera uma lista de Personal Trainer
 	 */
 	@GET
-	@JsonTokenNeeded
+//	@JsonTokenNeeded
 	public Response findAllPersonalTrainer() {
 		List<PersonalTrainer> allPersonal = personalTrainerBean.getPersonalTrainers();
 		if (allPersonal != null)

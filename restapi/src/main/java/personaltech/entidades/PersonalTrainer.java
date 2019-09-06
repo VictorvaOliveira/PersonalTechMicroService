@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "personaltrainer", catalog = "personaltech")
+@Table(name = "personaltrainer", catalog = "pdsc")
 public class PersonalTrainer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
