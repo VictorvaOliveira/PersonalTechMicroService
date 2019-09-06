@@ -1,4 +1,4 @@
-package personaltech.restapi;
+package alunorest.service;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -16,8 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import personaltech.ejb.AlunoBean;
-import personaltech.entidades.Aluno;
+import alunorest.ejb.AlunoBean;
+import alunorest.entidade.Aluno;
 
 @Path("/aluno")
 @Produces(APPLICATION_JSON)

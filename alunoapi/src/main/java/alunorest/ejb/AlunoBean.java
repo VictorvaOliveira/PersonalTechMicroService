@@ -1,4 +1,4 @@
-package personaltech.ejb;
+package alunorest.ejb;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import personaltech.entidades.Aluno;
+import alunorest.entidade.Aluno;
 
 @Stateless
 public class AlunoBean {

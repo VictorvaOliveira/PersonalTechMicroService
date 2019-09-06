@@ -1,4 +1,4 @@
-package personaltech.entidades;
+package alunorest.entidade;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "aluno", catalog = "personaltech")
+@Table(name = "aluno", catalog = "pdsc")
 public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 1L;
