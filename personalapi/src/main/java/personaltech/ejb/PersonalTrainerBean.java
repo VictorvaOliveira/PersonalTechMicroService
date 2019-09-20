@@ -41,13 +41,25 @@ public class PersonalTrainerBean {
 		return null;
 	}
 
-	public PersonalTrainer cadastrarPersonal(String name, String email, String senha) {
+	public PersonalTrainer cadastrarPersonal(String name, String email, int idAcademia) {
 		PersonalTrainer personal = new PersonalTrainer();
 		personal.setNome(name);
 		personal.setEmail(email);
-		personal.setSenha(senha);
+		personal.setSenha("123");
+		personal.setIdAcademia(idAcademia);
 		entityManager.persist(personal);
 		return personal;
+	}
+	
+	public List<PersonalTrainer> personalPorAcademia(int id){
+		String jpql = ("select pt from PersonalTrainer pt where pt.idAcademia = ?1");
+		Query query = entityManager.createQuery(jpql, PersonalTrainer.class);
+		
+		List<PersonalTrainer> personals = query.setParameter(1,id).getResultList();
+		
+		if (personals != null)
+			return personals;
+		return null;
 	}
 
 	public PersonalTrainer login(String login, String senha) {

@@ -30,6 +30,9 @@ public class PersonalTrainer implements Serializable{
 	@JsonbTransient
 	@Column(name = "senha", nullable = false)
 	private String senha;
+	
+	@Column(name = "idAcademia", nullable = false)
+	private int idAcademia;
 
 	/*
 	 * 
@@ -82,5 +85,13 @@ public class PersonalTrainer implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	/*
+	 * 
+	 */
+	public int getIdAcademia() {
+		return idAcademia;
+	}
+	public void setIdAcademia(int idAcademia){
+		this.idAcademia = idAcademia;
+	}
 }

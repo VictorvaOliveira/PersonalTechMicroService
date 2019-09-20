@@ -22,8 +22,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
 import personaltech.entidades.PersonalTrainer;
-import personaltech.jwtConfiguration.JsonTokenNeeded;
-import personaltech.util.JwTokenHelper;
 import personaltech.ejb.*;
 
 @Path("/personal")
@@ -34,26 +32,6 @@ public class PersonalTechService {
 
 	@EJB
 	private PersonalTrainerBean personalTrainerBean;
-
-	/*
-	 * Login personal trainer
-	 */
-	@POST
-	@Path("/login")
-	@Consumes(APPLICATION_FORM_URLENCODED)
-	public Response login(@FormParam("login") String login, @FormParam("senha") String senha) {
-
-		PersonalTrainer personal = personalTrainerBean.login(login, senha);
-
-		String token = null;
-
-		if (personal != null) {
-			token = JwTokenHelper.getInstance().generateToken(login, senha);
-			return Response.ok(personal).header(AUTHORIZATION, "Bearer" + token).build();
-		}
-		return Response.status(NOT_FOUND).build();
-
-	}
 
 	/*
 	 * Recupera uma lista de Personal Trainer
@@ -85,9 +63,12 @@ public class PersonalTechService {
 	@POST
 	@Path("/newpersonal")
 	@Consumes(APPLICATION_FORM_URLENCODED)
-	public Response persistPersonal(@FormParam("name") String name, @FormParam("email") String email,
-			@FormParam("senha") String senha) {
-		PersonalTrainer personal = personalTrainerBean.cadastrarPersonal(name, email, senha);
+	public Response persistPersonal(
+			@FormParam("name") String name, 
+			@FormParam("email") String email,
+			@FormParam("idAcademia") int idAcademia) {
+		
+		PersonalTrainer personal = personalTrainerBean.cadastrarPersonal(name, email, idAcademia);
 
 		if (personal != null) {
 			return Response.ok(personal).build();
@@ -95,4 +76,14 @@ public class PersonalTechService {
 		return Response.status(500).build();
 	}
 
+	@GET
+	@Path("/personalacademia/{id}")
+	public Response findPersonalPorAcademia(@PathParam("id") int id) {
+		List<PersonalTrainer> personals = personalTrainerBean.personalPorAcademia(id);
+		
+		if(personals != null) {
+			return Response.ok(personals).build();
+		}
+		return Response.status(404).build();
+	}
 }
