@@ -23,6 +23,9 @@ public class Aluno implements Serializable {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
+	@Column(name = "telefone", nullable = false)
+	private String telefone;
+	
 	@Column(name = "dataCobranca", nullable = false)
 	private String dataCobranca;
 	
@@ -52,6 +55,15 @@ public class Aluno implements Serializable {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	/*
+	 * 
+	 */
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	/*
 	 * PARAMÊTRO DA DATA DA COBRANÇA DE PAGAMENTO DO ALUNO

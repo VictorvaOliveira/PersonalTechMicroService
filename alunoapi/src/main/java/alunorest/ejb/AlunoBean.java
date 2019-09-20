@@ -22,7 +22,7 @@ public class AlunoBean {
 	}
 
 	public List<Aluno> getAllAluno() {
-		
+
 		String jpql = ("select al from Aluno al");
 		Query query = entityManager.createQuery(jpql, Aluno.class);
 		List<Aluno> alunos = query.getResultList();
@@ -33,7 +33,7 @@ public class AlunoBean {
 	}
 
 	public Aluno getOneAluno(int id) {
-		
+
 		Aluno aluno = entityManager.find(Aluno.class, id);
 
 		if (aluno != null)
@@ -41,28 +41,58 @@ public class AlunoBean {
 		return null;
 	}
 
-	public Aluno cadastrarAluno(String nome, String dataCobranca, int idPersonalTrainer) {
-		
+	public Aluno cadastrarAluno(String nome, String telefone, String dataCobranca, int idPersonalTrainer) {
+
 		Aluno aluno = new Aluno();
-		
+
 		aluno.setNome(nome);
+		aluno.setTelefone(telefone);
 		aluno.setDataCobranca(dataCobranca);
 		aluno.setStatusAtual("APTO");
 		aluno.setStatusProxCobranca("INAPTO");
 		aluno.setIdPersonalTrainer(idPersonalTrainer);
-		
+
 		entityManager.persist(aluno);
 		return aluno;
 	}
 
 	public List<Aluno> alunoPerPersonal(int id) {
-		
+
 		String jpql = ("select al from Aluno al where al.idPersonalTrainer = ?1");
 		Query query = entityManager.createQuery(jpql, Aluno.class);
 		List<Aluno> alunos = query.setParameter(1, id).getResultList();
-		
+
 		if (alunos != null)
 			return alunos;
 		return null;
+	}
+
+	public int updateAlunoStatus(int id, String dataPC, String statusAtual, String proximoStatus) {
+
+		Aluno aluno = entityManager.find(Aluno.class, id);
+
+		entityManager.getTransaction().begin();
+		aluno.setDataCobranca(dataPC);
+		aluno.setStatusAtual(statusAtual);
+		aluno.setStatusProxCobranca(proximoStatus);
+
+		try {
+			entityManager.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			return 2;
+		}
+	}
+
+	public int deletar(int id) {
+
+		Aluno aluno = entityManager.find(Aluno.class, id);
+		
+		if (aluno != null) {
+			entityManager.remove(aluno);
+			return 1;
+		}else {
+			return 2;
+		}
 	}
 }
