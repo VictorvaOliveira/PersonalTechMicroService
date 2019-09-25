@@ -27,7 +27,7 @@ public class PersonalTrainerBean {
 		Query query = entityManager.createQuery(jpql, PersonalTrainer.class);
 		List<PersonalTrainer> personaltrainer = query.getResultList();
 
-		if (personaltrainer != null) {
+		if (!personaltrainer.isEmpty()) {
 			return personaltrainer;
 		}
 		return null;
@@ -41,12 +41,8 @@ public class PersonalTrainerBean {
 		return null;
 	}
 
-	public PersonalTrainer cadastrarPersonal(String name, String email, int idAcademia) {
-		PersonalTrainer personal = new PersonalTrainer();
-		personal.setNome(name);
-		personal.setEmail(email);
-		personal.setSenha("123");
-		personal.setIdAcademia(idAcademia);
+	public PersonalTrainer cadastrarPersonal(PersonalTrainer personal) {
+
 		entityManager.persist(personal);
 		return personal;
 	}
@@ -57,7 +53,7 @@ public class PersonalTrainerBean {
 		
 		List<PersonalTrainer> personals = query.setParameter(1,id).getResultList();
 		
-		if (personals != null)
+		if (!personals.isEmpty())
 			return personals;
 		return null;
 	}
@@ -69,5 +65,23 @@ public class PersonalTrainerBean {
 		query.setParameter("pSenha", senha);
 		PersonalTrainer personal = (PersonalTrainer) query.getSingleResult();
 		return personal;
+	}
+	
+	public int deletar(int id) {
+		
+		PersonalTrainer personal = entityManager.find(PersonalTrainer.class, id);
+		
+		if(personal != null) {
+			entityManager.remove(personal);
+			return 1;
+		}else{
+			return 2;
+		}
+	}
+	
+	public PersonalTrainer updatePersonal(PersonalTrainer personal) {
+		
+		return entityManager.merge(personal);
+	
 	}
 }
