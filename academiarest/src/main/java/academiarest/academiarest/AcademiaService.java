@@ -31,13 +31,32 @@ public class AcademiaService {
 	@GET
 	public Response findAllAcademia() {
 		List<Academia> academias = academiaBean.getAllAcademia();
-		if (academias != null)
+		if (!academias.isEmpty())
 			return Response.ok(academias).build();
 		return Response.status(404).build();
 	}
 	
-	/**
-	 * FAZER OUTROS MÉTODOS BASEADO 
-	 * NA NECESSIDADE DO PROJETO
-	 */
+	@GET
+	@Path("/{id}")
+	public Response oneAcademia(@PathParam("id") int id) {
+		
+		Academia academia = academiaBean.getOneAcademia(id);
+		
+		if(academia != null)
+			return Response.ok(academia).build();
+		return Response.status(404).build();
+	}	
+	
+	@POST
+	@Path("/excluir/{id}")
+	@Consumes(APPLICATION_JSON)
+	public Response excluir(@PathParam("id") int id) {
+		
+		try {
+			academiaBean.remove(id);ss
+			return Response.ok().build();
+		}catch(Exception e) {
+			return Response.status(500).build();
+		}
+	}
 }

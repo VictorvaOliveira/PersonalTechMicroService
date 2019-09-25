@@ -42,4 +42,16 @@ public class AcademiaBean {
 			return Academia;
 		return null;
 	}
+
+	public int remove(int id) {
+		
+		Academia academia = entityManager.find(Academia.class, id);
+		
+		if (academia != null) {
+			entityManager.remove(academia);
+			return 1;
+		} else {
+			return 2;
+		}
+	}
 }
