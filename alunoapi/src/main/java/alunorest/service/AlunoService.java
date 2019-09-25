@@ -36,7 +36,7 @@ public class AlunoService {
 	@GET
 	public Response findAllAluno() {
 		List<Aluno> alunos = alunoBean.getAllAluno();
-		if (alunos != null)
+		if (!alunos.isEmpty())
 			return Response.ok(alunos).build();
 		return Response.status(404).build();
 	}
@@ -84,7 +84,7 @@ public class AlunoService {
 	public Response findAlunoPerPersonal(@PathParam("id") int id) {
 		List<Aluno> alunos = alunoBean.alunoPerPersonal(id);
 
-		if (alunos != null)
+		if (!alunos.isEmpty())
 			return Response.ok(alunos).build();
 		return Response.status(404).build();
 	}
