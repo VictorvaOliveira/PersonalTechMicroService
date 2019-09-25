@@ -41,16 +41,7 @@ public class AlunoBean {
 		return null;
 	}
 
-	public Aluno cadastrarAluno(String nome, String telefone, String dataCobranca, int idPersonalTrainer) {
-
-		Aluno aluno = new Aluno();
-
-		aluno.setNome(nome);
-		aluno.setTelefone(telefone);
-		aluno.setDataCobranca(dataCobranca);
-		aluno.setStatusAtual("APTO");
-		aluno.setStatusProxCobranca("INAPTO");
-		aluno.setIdPersonalTrainer(idPersonalTrainer);
+	public Aluno cadastrarAluno(Aluno aluno) {
 
 		entityManager.persist(aluno);
 		return aluno;
@@ -67,32 +58,33 @@ public class AlunoBean {
 		return null;
 	}
 
-	public int updateAlunoStatus(int id, String dataPC, String statusAtual, String proximoStatus) {
-
-		Aluno aluno = entityManager.find(Aluno.class, id);
-
-		entityManager.getTransaction().begin();
-		aluno.setDataCobranca(dataPC);
-		aluno.setStatusAtual(statusAtual);
-		aluno.setStatusProxCobranca(proximoStatus);
-
-		try {
-			entityManager.getTransaction().commit();
-			return 1;
-		} catch (Exception e) {
-			return 2;
-		}
+	/*
+	 * ATUALIZAÇÃO DO STATUS DO ALUNO
+	 */
+	public Aluno updateAlunoStatus(Aluno aluno) {
+		return entityManager.merge(aluno);
 	}
 
+	/*
+	 * ATUALIZAÇÃO DE DADOS PESSOAIS (NOME) E DATA DA COBRANCA
+	 */
+	public Aluno updateAluno(Aluno aluno) {
+		return entityManager.merge(aluno);
+	}
+
+	/*
+	 * DELETAR ALUNO
+	 */
 	public int deletar(int id) {
 
 		Aluno aluno = entityManager.find(Aluno.class, id);
-		
+
 		if (aluno != null) {
 			entityManager.remove(aluno);
 			return 1;
-		}else {
+		} else {
 			return 2;
 		}
 	}
+
 }
