@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <th>Nome</th>
+        </thead>
+        <tbody id="table1">
+            <!-- TABLE DE PERSONAL -->
+        </tbody>
+    </table>
+</body>
+<script>
+
+    var table = document.getElementById("table1");
+
+
+
+    function onLoad() {
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                listPersonal = this.responseText;
+                var listCorreta = JSON.parse(listPersonal);
+                var length = Object.keys(listCorreta).length;
+
+                console.log(listCorreta);
+
+                for (let i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell = row.insertCell(0);
+                    cell.innerHTML = listCorreta[i].nome;
+                }
+            }
+        }
+
+        xhttp.open("GET", "http://localhost:8080/ApiGateway/api/personal/all");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", "Bearer " + JSON.parse(JSON.parse(localStorage.getItem("User"))).token);
+        xhttp.send();
+    }
+
+    onLoad();
+</script>
+
+</html>

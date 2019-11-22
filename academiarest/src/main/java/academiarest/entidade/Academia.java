@@ -28,6 +28,9 @@ public class Academia implements Serializable{
 	
 	@Column(name = "senha", nullable = false)
 	private String senha;
+	
+	@Column(name = "token", nullable = false)
+	private String token;
 
 	/*
 	 * 
@@ -69,4 +72,14 @@ public class Academia implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 }

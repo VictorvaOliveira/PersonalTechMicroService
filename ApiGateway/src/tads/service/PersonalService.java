@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tads.entidades.PersonalTrainer;
+import tads.jwtConfiguration.JsonTokenNeeded;
 
 @Path("/personal")
 @Produces(APPLICATION_JSON)
@@ -28,6 +29,7 @@ public class PersonalService {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response allPersonal() {
 
 		Client client = ClientBuilder.newClient();
@@ -42,6 +44,7 @@ public class PersonalService {
 	@GET
 	@Path("/onepersonal/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response onePersonal(@PathParam("id") int id) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(baseUrl.concat("/") + id);
@@ -55,6 +58,7 @@ public class PersonalService {
 	@POST
 	@Path("/newpersonal")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response newPersonal(PersonalTrainer personal) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(baseUrl.concat("/newpersonal"));
@@ -69,6 +73,7 @@ public class PersonalService {
 	@GET
 	@Path("/personalacademia/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response personalPorAcademia(@PathParam("id") int id) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(baseUrl.concat("/personalacademia/") + id);
@@ -82,6 +87,7 @@ public class PersonalService {
 	@POST
 	@Path("/updatepersonal")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response updatePersonal(PersonalTrainer personal) {
 
 		Client client = ClientBuilder.newClient();

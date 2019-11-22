@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+                <form id="form1" style=" border-style: solid; border-color: black; border-radius: 10px;">
+                    <h4 style="text-align: center;">Personal Tech</h4>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                    </div>
+                    <input id="botao" type="submit">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <p id="demo"> </p>
+
+
+    <script>
+
+        function setBaseUrl() {
+            localStorage.setItem(
+                "url",
+                "file:///home/victor/pdsc2/PersonalTechMicroService/FrontPersonal/html/"
+            );
+        }
+
+        var form1 = document.getElementById("form1");
+
+        form1.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    entityResponse = this.responseText;
+                    var User = entityResponse;
+                    localStorage.setItem("User", JSON.stringify(User));
+                    window.location.replace (
+                        localStorage.getItem("url") + "index.html"
+                    );
+                }
+            };
+            xhttp.open("POST", "http://localhost:8080/ApiGateway/api/academia/login", true);
+
+            xhttp.setRequestHeader("Content-type", "application/json");
+            let obj = { email: "academia1@personaltech.com", senha: "123" };
+            let academia = JSON.stringify(obj);
+            xhttp.send(academia);
+        });
+
+        setBaseUrl();
+    </script>
+</body>
+
+</html>

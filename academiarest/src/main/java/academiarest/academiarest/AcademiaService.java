@@ -28,6 +28,20 @@ public class AcademiaService {
 	@EJB
 	private AcademiaBean academiaBean;
 	
+	@POST
+	@Path("/login")
+	@Consumes(APPLICATION_JSON)
+	@Produces(APPLICATION_JSON)
+	public Response login(Academia newAcademia) {
+		Academia academiax = new Academia();
+		academiax = academiaBean.login(newAcademia);
+		if (academiax != null)
+			return Response.ok(academiax).build();
+		else
+			System.out.println("userx é null");
+		return Response.status(404).build();
+	}
+	
 	@GET
 	public Response findAllAcademia() {
 		List<Academia> academias = academiaBean.getAllAcademia();
@@ -53,7 +67,7 @@ public class AcademiaService {
 	public Response excluir(@PathParam("id") int id) {
 		
 		try {
-			academiaBean.remove(id);ss
+			academiaBean.remove(id);
 			return Response.ok().build();
 		}catch(Exception e) {
 			return Response.status(500).build();

@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tads.entidades.Aluno;
+import tads.jwtConfiguration.JsonTokenNeeded;
 
 @Path("/aluno")
 @Produces(APPLICATION_JSON)
@@ -28,6 +29,7 @@ public class AlunoService {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response allAlunos() {
 
 		Client client = ClientBuilder.newClient();
@@ -43,6 +45,7 @@ public class AlunoService {
 	@GET
 	@Path("/onealuno/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response oneAluno(@PathParam("id") int id) {
 		
 		Client client = ClientBuilder.newClient();
@@ -57,6 +60,7 @@ public class AlunoService {
 	@POST
 	@Path("/newaluno")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response newAluno(Aluno aluno) {
 
 		Client client = ClientBuilder.newClient();
@@ -74,6 +78,7 @@ public class AlunoService {
 	@POST
 	@Path("/updatestatus")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response updataStatus(Aluno aluno) {
 
 		Client client = ClientBuilder.newClient();
@@ -92,6 +97,7 @@ public class AlunoService {
 	@POST
 	@Path("/updatealuno")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response updataAluno(Aluno aluno) {
 
 		Client client = ClientBuilder.newClient();
@@ -110,6 +116,7 @@ public class AlunoService {
 	@POST
 	@Path("/excluiraluno/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
 	public Response excluirAluno(@PathParam("id") int id) {
 
 		Client client = ClientBuilder.newClient();

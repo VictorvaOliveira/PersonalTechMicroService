@@ -54,4 +54,24 @@ public class AcademiaBean {
 			return 2;
 		}
 	}
+
+	public Academia login(Academia newAcademia) {
+		String jpql = ("select a from Academia a where a.email = :email and a.senha = :senha");
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("email", newAcademia.getEmail());
+		query.setParameter("senha", newAcademia.getSenha());
+		
+		Academia academiax  = (Academia) query.getSingleResult();
+		academiax.setToken(newAcademia.getToken());
+		
+		academiax = updateAcademia(academiax);
+		System.out.println("AcadeimaBean (token):" + academiax.getToken());
+		
+		return academiax;
+	}
+
+	private Academia updateAcademia(Academia academiax) {
+		// TODO Auto-generated method stub
+		return entityManager.merge(academiax);
+	}
 }

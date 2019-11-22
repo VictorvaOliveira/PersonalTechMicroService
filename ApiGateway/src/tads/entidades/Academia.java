@@ -6,6 +6,9 @@ public class Academia {
 	private String nome;
 	private String email;
 	private String senha;
+	private String token;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -29,6 +32,12 @@ public class Academia {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	 
 	
