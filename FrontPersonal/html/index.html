@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 
     <style>
@@ -21,21 +24,42 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">Cadastrar Personal Trainer</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">Cadastrar aluno</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
 
-    <table>
-        <thead>
-            <th>Nome</th>
-        </thead>
-        <tbody id="table1">
-            <!-- TABLE DE PERSONAL -->
-        </tbody>
-    </table>
+                <table class="table">
+                    <thead>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </thead>
+                    <tbody id="table1">
+                        <!-- TABLE DE PERSONAL -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
 
     var table = document.getElementById("table1");
-
-
 
     function onLoad() {
 
@@ -52,7 +76,21 @@
                 for (let i = 0; i < length; i++) {
                     var row = table.insertRow(i);
                     var cell = row.insertCell(0);
+
+                    let span = document.createElement("span");
+                    span.setAttribute("class", "glyphicon glyphicon-info-sign");
+
+                    let button = document.createElement("button");
+                    button.setAttribute("type", "button");
+                    button.setAttribute("class", "btn btn-primary");
+                    button.setAttribute("id", "butao");
+                    button.addEventListener("click", visualizarPersonal);
+                    button.value = listCorreta[i].id;
+                    button.appendChild(span);
+
+                    var cell2 = row.insertCell(-1);
                     cell.innerHTML = listCorreta[i].nome;
+                    cell2.appendChild(button);
                 }
             }
         }
@@ -63,7 +101,15 @@
         xhttp.send();
     }
 
+    function visualizarPersonal(){
+        alert("Olá boa noite lorem ipsum lorem ipsum");
+
+        //REQUISIÇÃO PARA TELA DE INFORMAÇÕES DO PERSONAL TRAINER COM OS ALUNOS DO PERSONAL
+    };
+
+
     onLoad();
+
 </script>
 
 </html>
