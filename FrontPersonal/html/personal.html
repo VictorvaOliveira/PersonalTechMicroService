@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+    </nav>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Personal trainer</div>
+            <div class="panel-body">
+                <form action="#">
+                    <div class="form-group">
+                        <label for="nomep">Nome:</label>
+                        <input name="nomep" id="nomep" type="text" class="form-control" readonly/>
+                        <br />
+                        <label for="emailp">Email:</label>
+                        <input name="emailp" id="emailp" type="text" class="form-control" readonly/>
+                    </div>
+                </form>
+                <fieldset>
+                    <legend>Lista de alunos</legend>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+
+                                <table class="table">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th>Ações</th>
+                                    </thead>
+                                    <tbody id="table1">
+                                        <!-- TABLE DE PERSONAL -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+
+    var table = document.getElementById("table1");
+
+    // função pra ler querystring
+    function queryString(parameter) {
+        var loc = location.search.substring(1, location.search.length);
+        var param_value = false;
+        var params = loc.split("&");
+        for (i = 0; i < params.length; i++) {
+            param_name = params[i].substring(0, params[i].indexOf('='));
+            if (param_name == parameter) {
+                param_value = params[i].substring(params[i].indexOf('=') + 1)
+            }
+        }
+        if (param_value) {
+            console.log("Valor:" + param_value);
+            if (param_value != null) {
+                onload();
+                onloadAluno();
+            }
+            return param_value;
+
+        }
+        else {
+            return undefined;
+        }
+    }
+
+    function onload() {
+        var xhttp = new XMLHttpRequest();
+
+        var nome = document.getElementById("nomep");
+        var email = document.getElementById("emailp");
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                listPersonal = this.responseText;
+                var listCorreta = JSON.parse(listPersonal);
+                console.log(listCorreta);
+
+                nome.value = listCorreta.nome;
+                email.value = listCorreta.email;
+            }
+        }
+
+        xhttp.open("GET", "http://localhost:8080/ApiGateway/api/personal/onepersonal/1");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", "Bearer " + JSON.parse(JSON.parse(localStorage.getItem("User"))).token);
+        xhttp.send();
+    }
+
+    function onloadAluno() {
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                listAluno = this.responseText;
+                var listCorretaAluno = JSON.parse(listAluno);
+                var length = Object.keys(listCorretaAluno).length;
+
+                console.log(listCorretaAluno);
+
+                for (let i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell = row.insertCell(0);
+
+                    let span = document.createElement("span");
+                    span.setAttribute("class", "glyphicon glyphicon-trash");
+
+                    let button = document.createElement("button");
+                    button.setAttribute("type", "button");
+                    button.setAttribute("class", "btn btn-danger");
+                    button.setAttribute("id", "butao" + i);
+                    button.addEventListener("click", excluirAluno);
+                    button.value = listCorretaAluno[i].id;
+                    button.appendChild(span);
+
+                    var cell2 = row.insertCell(-1);
+                    cell.innerHTML = listCorretaAluno[i].nome;
+                    cell2.appendChild(button);
+                }
+            }
+        }
+
+        xhttp.open("GET", "http://localhost:8080/ApiGateway/api/aluno/alunopersonal/1");
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", "Bearer " + JSON.parse(JSON.parse(localStorage.getItem("User"))).token);
+        xhttp.send();
+    }
+
+    function excluirAluno() {
+
+        var idAluno = this.value;
+        
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                setTimeout("location.reload(true);",3000); 
+            }
+        }
+
+        xhttp.open("POST", "http://localhost:8080/ApiGateway/api/aluno/excluiraluno/" + idAluno);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", "Bearer " + JSON.parse(JSON.parse(localStorage.getItem("User"))).token);
+        xhttp.send();
+
+    };
+
+    var variavel = queryString("value");
+</script>
+
+</html>

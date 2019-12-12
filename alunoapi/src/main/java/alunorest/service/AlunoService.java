@@ -142,6 +142,7 @@ public class AlunoService {
 			return Response.ok(aluno).build();
 		return Response.status(500).build();
 	}
+	
 	@POST
 	@Path("excluir/{id}")
 	@Consumes(APPLICATION_JSON)

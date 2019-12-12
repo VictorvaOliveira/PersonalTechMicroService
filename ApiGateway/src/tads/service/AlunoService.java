@@ -43,6 +43,21 @@ public class AlunoService {
 	}
 	
 	@GET
+	@Path("/alunopersonal/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@JsonTokenNeeded
+	public Response allAlunosPerPersonal(@PathParam("id") int id) {
+
+		Client client = ClientBuilder.newClient();
+		WebTarget webTarget = client.target(baseUrl.concat("/alunopersonal/") + id);
+
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.get();
+
+		return response;
+	}
+	
+	@GET
 	@Path("/onealuno/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@JsonTokenNeeded

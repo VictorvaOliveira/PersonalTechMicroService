@@ -101,10 +101,13 @@
         xhttp.send();
     }
 
-    function visualizarPersonal(){
-        alert("Olá boa noite lorem ipsum lorem ipsum");
+    function visualizarPersonal() {
+        //alert("Olá boa noite lorem ipsum lorem ipsum");
 
         //REQUISIÇÃO PARA TELA DE INFORMAÇÕES DO PERSONAL TRAINER COM OS ALUNOS DO PERSONAL
+        window.location.replace(
+            localStorage.getItem("url") + "personal.html?value=" + 1
+        );
     };
 
 
