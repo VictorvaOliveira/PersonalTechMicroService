@@ -24,19 +24,23 @@
             <div class="col-md-3"></div>
 
             <div class="col-md-6">
-                <form id="form1" style=" border-style: solid; border-color: black; border-radius: 10px;">
-                    <h4 style="text-align: center;">Personal Tech</h4>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-                    </div>
-                    <input id="botao" type="submit">
-                </form>
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="text-align: center;">Personal Tech</div>
+                    <div class="panel-body">
+                        <form id="form1"s>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                            </div>
+                            <input id="botao" type="submit">
+                        </form>
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -63,7 +67,7 @@
                     entityResponse = this.responseText;
                     var User = entityResponse;
                     localStorage.setItem("User", JSON.stringify(User));
-                    window.location.replace (
+                    window.location.replace(
                         localStorage.getItem("url") + "index.html"
                     );
                 }
